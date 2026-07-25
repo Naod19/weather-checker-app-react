@@ -8,11 +8,9 @@ import { getBackgroundClass } from "./utils/getBackgroundClass";
 
 //Components
 import Notification from "./components/UI/Notification/Notification";
-import LoadingSpinner from "./components/UI/LoadingSpinner/LoadingSpinner";
-import ErrorMessage from "./components/UI/ErrorMessage/ErrorMessage";
-import SearchBar from "./components/UI/SearchBar/SearchBar";
-import Button from "./components/UI/Button/Button";
-import WeatherDisplay from "./components/WeatherDisplay/WeatherDisplay";
+import WeatherDisplay from "./components/Sections/WeatherDisplaySection/WeatherDisplay";
+import FavSideBar from "./components/Sections/FavoriteSection/FavSideBar/FavSideBar";
+import NavSection from "./components/Sections/NavSection/NavSection";
 
 import "./Weather.css";
 
@@ -81,63 +79,28 @@ function WeatherApp() {
           onDismiss={() => setNotification(null)}
         />
       )}
-      <form onSubmit={handleSearch} className="form-input">
-        <SearchBar
-          id="main-search-bar"
-          value={inputValue}
-          onInput={(e) => setInputValue(e.target.value)}
-          placeholder="Search City"
-        />
-        <Button type="submit" loading={loading}>
-          <i className="fa-solid fa-magnifying-glass"></i>
-        </Button>
-        <Button
-          onClick={() => setShowFavorites(!showFavorites)}
-          variant="fav-btn"
-        >
-          Favorites
-        </Button>
-      </form>
+      <NavSection
+        value={inputValue}
+        onInput={(e) => setInputValue(e.target.value)}
+        onSubmit={handleSearch}
+        loading={loading}
+        onClick={() => setShowFavorites(!showFavorites)}
+      />
 
-      <div className="result-area">
-        {loading && <LoadingSpinner />}
-        {error && <ErrorMessage message={error} />}
-        {!loading && !error && weather && (
-          <WeatherDisplay
-            key={weather.id}
-            weather={weather}
-            temperature={temperature}
-            feelLike={feelLike}
-            onAddFavorite={handleFav}
-          />
-        )}
-        <div className={`fav-sidebar ${showFavorites ? "open" : ""}`}>
-          <p className="x-button" onClick={() => setShowFavorites(false)}>
-            &times;
-          </p>
-          <h3>My Favorites</h3>
-          {favorites.length > 0 ? (
-            favorites.map((fav) => (
-              <div key={fav.id} className="fav-item">
-                <h4>City: {fav.name}</h4>
-                <h4>Temp: {fav.temp}ºC</h4>
-                <h4>Feels Like: {fav.feelsLike}</h4>
-                <h4>Weather: {fav.desc}</h4>
-                <button
-                  onClick={() => removeFav(fav.id)}
-                  className="remove-fav-btn"
-                >
-                  remove
-                </button>
-              </div>
-            ))
-          ) : (
-            <p>No Favorites yet</p>
-          )}
-        </div>
-
-        {!city && !loading && <p>Please enter a city</p>}
-      </div>
+      <WeatherDisplay
+        weather={weather}
+        temperature={temperature}
+        feelLike={feelLike}
+        onAddFavorite={handleFav}
+        loading={loading}
+        error={error}
+      />
+      <FavSideBar
+        favorites={favorites}
+        showFavorites={showFavorites}
+        onClose={() => setShowFavorites(false)}
+        onRemove={removeFav}
+      />
     </div>
   );
 }
