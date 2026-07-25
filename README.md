@@ -6,6 +6,7 @@ A Weather checker app that tells the temperature, what it feel like and the weat
 - Add or remove a city from your favorites city section(side-menu)
 - Check for duplicates inside favorites
 - Toast Notification that give instant feedback when updating city status
+- Dynamic background color that changes according to the temperature.
 - Data persists with localStorage
 
 ## What I Learned
