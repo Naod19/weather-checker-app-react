@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { useWeather } from "./hooks/useWeather";
 import { useFavorites } from "./hooks/useFavorites";
 
+//utils
+import { getBackgroundClass } from "./utils/getBackgroundClass";
+
 import "./Weather.css";
 
 function WeatherApp() {
@@ -66,16 +69,11 @@ function WeatherApp() {
   };
 
   //background changer
-  const backgroundClass = () => {
-    if (!weather) return "default-bg";
+  const bgColor = getBackgroundClass(weather, temperature);
 
-    if (temperature <= 15) return "bg-cold";
-    if (temperature > 15 && temperature <= 28) return "bg-moderate";
-    if (temperature > 28) return "bg-hot";
-  };
   //JSX
   return (
-    <div className={`app-container ${backgroundClass()}`}>
+    <div className={`app-container ${bgColor}`}>
       <h1>Weather Checker</h1>
       {notification && (
         <div className="notification-banner">{notification}</div>
