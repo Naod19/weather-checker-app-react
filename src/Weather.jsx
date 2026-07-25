@@ -34,6 +34,7 @@ function WeatherApp() {
   //temp rounded
   const temperature = weather && Math.round(weather.main.temp);
   const feelLike = weather && Math.round(weather.main.feels_like);
+
   // adding favorites function
   const handleFav = () => {
     if (!weather) return;
