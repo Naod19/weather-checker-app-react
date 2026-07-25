@@ -1,10 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 //Hooks
 import { useWeather } from "./hooks/useWeather";
 import { useFavorites } from "./hooks/useFavorites";
 
-//utils
+//Utils
 import { getBackgroundClass } from "./utils/getBackgroundClass";
+
+//Components
+import Notification from "./components/UI/Notification/Notification";
+import LoadingSpinner from "./components/UI/LoadingSpinner/LoadingSpinner";
+import ErrorMessage from "./components/UI/ErrorMessage/ErrorMessage";
 
 import "./Weather.css";
 
@@ -17,15 +22,6 @@ function WeatherApp() {
   const [notification, setNotification] = useState(null);
 
   //timer notification
-  useEffect(() => {
-    let timer;
-    if (notification) {
-      timer = setTimeout(() => {
-        setNotification(null);
-      }, 2500);
-    }
-    return () => clearTimeout(timer);
-  }, [notification]);
 
   // city search function
   const handleSearch = (e) => {
@@ -76,7 +72,10 @@ function WeatherApp() {
     <div className={`app-container ${bgColor}`}>
       <h1>Weather Checker</h1>
       {notification && (
-        <div className="notification-banner">{notification}</div>
+        <Notification
+          message={notification}
+          onDismiss={() => setNotification(null)}
+        />
       )}
       <form onSubmit={handleSearch} className="form-input">
         <input
@@ -97,8 +96,8 @@ function WeatherApp() {
       </form>
 
       <div className="result-area">
-        {loading && <div className="loading-spinner"></div>}
-        {error && <p className="error-msg">{error}</p>}
+        {loading && <LoadingSpinner />}
+        {error && <ErrorMessage message={error} />}
         {!loading && !error && weather && (
           <div>
             <h2>City: {weather.name}</h2>
