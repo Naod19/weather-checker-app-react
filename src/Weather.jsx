@@ -88,27 +88,19 @@ function WeatherApp() {
 
     if (isDuplicate) {
       setNotification("City already in favorites");
-      setTimeout(() => {
-        setNotification(null);
-      }, 3000);
       return;
     }
 
     setFavorites((prev) => [...prev, weatherInfo]);
     setNotification("City added ✅");
-    setTimeout(() => {
-      setNotification(null);
-    }, 3000);
   };
 
   const removeFav = (id) => {
     const cityToRemove = favorites.find((city) => city.id === id);
-    setNotification(`Removed ${cityToRemove.name} from favorites`);
-
+    if (cityToRemove) {
+      setNotification(`Removed ${cityToRemove.name} from favorites`);
+    }
     setFavorites(favorites.filter((city) => city.id !== id));
-    setTimeout(() => {
-      setNotification(null);
-    }, 3000);
   };
 
   //background changer
