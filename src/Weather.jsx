@@ -12,6 +12,7 @@ import LoadingSpinner from "./components/UI/LoadingSpinner/LoadingSpinner";
 import ErrorMessage from "./components/UI/ErrorMessage/ErrorMessage";
 import SearchBar from "./components/UI/SearchBar/SearchBar";
 import Button from "./components/UI/Button/Button";
+import WeatherDisplay from "./components/WeatherDisplay/WeatherDisplay";
 
 import "./Weather.css";
 
@@ -102,15 +103,13 @@ function WeatherApp() {
         {loading && <LoadingSpinner />}
         {error && <ErrorMessage message={error} />}
         {!loading && !error && weather && (
-          <div>
-            <h2>City: {weather.name}</h2>
-            <h3>Temp: {temperature}ºC</h3>
-            <h3>Feels Like: {feelLike}</h3>
-            <h3>Weather: {weather.weather[0].description}</h3>
-            <button onClick={handleFav} className="add-fav-btn">
-              Add To Favorites
-            </button>
-          </div>
+          <WeatherDisplay
+            key={weather.id}
+            weather={weather}
+            temperature={temperature}
+            feelLike={feelLike}
+            onAddFavorite={handleFav}
+          />
         )}
         <div className={`fav-sidebar ${showFavorites ? "open" : ""}`}>
           <p className="x-button" onClick={() => setShowFavorites(false)}>
