@@ -1,55 +1,25 @@
 import { useEffect, useState } from "react";
+//Hooks
+import { useWeather } from "./hooks/useWeather";
 import "./Weather.css";
-
-const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
 function WeatherApp() {
   const [inputValue, setInputValue] = useState("");
-  const [weather, setWeather] = useState(null);
   const [city, setCity] = useState("");
+  const { weather, loading, error } = useWeather(city);
+
   const [favorites, setFavorites] = useState(() => {
     const saved = localStorage.getItem("favorites");
     return saved ? JSON.parse(saved) : [];
   });
   const [showFavorites, setShowFavorites] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+
   const [notification, setNotification] = useState(null);
 
   //localstorage
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
-
-  //Api fetch
-  useEffect(() => {
-    if (!city) return;
-
-    const controller = new AbortController();
-
-    const fetchWeather = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`,
-          { signal: controller.signal },
-        );
-        if (!response.ok) {
-          throw new Error("City not found");
-        }
-        const data = await response.json();
-        setWeather(data);
-      } catch (err) {
-        setError(err.message);
-        setWeather(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchWeather();
-    return () => controller.abort();
-  }, [city]);
 
   //timer notification
   useEffect(() => {
