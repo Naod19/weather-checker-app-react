@@ -1,0 +1,15 @@
+.button-global {
+  padding: 10px;
+  margin-right: 10px;
+  background-color: #0085c8;
+  color: #fff;
+  border: none;
+  border-radius: 0px 10px 10px 0px;
+  transition: all 0.2s ease;
+}
+.button-global:hover {
+  background-color: #0ba0ea;
+}
+.button-global:active {
+  background-color: #0085c8c0;
+}

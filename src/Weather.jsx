@@ -10,6 +10,8 @@ import { getBackgroundClass } from "./utils/getBackgroundClass";
 import Notification from "./components/UI/Notification/Notification";
 import LoadingSpinner from "./components/UI/LoadingSpinner/LoadingSpinner";
 import ErrorMessage from "./components/UI/ErrorMessage/ErrorMessage";
+import SearchBar from "./components/UI/SearchBar/SearchBar";
+import Button from "./components/UI/Button/Button";
 
 import "./Weather.css";
 
@@ -79,21 +81,21 @@ function WeatherApp() {
         />
       )}
       <form onSubmit={handleSearch} className="form-input">
-        <input
+        <SearchBar
+          id="main-search-bar"
           value={inputValue}
+          onInput={(e) => setInputValue(e.target.value)}
           placeholder="Search City"
-          onChange={(e) => setInputValue(e.target.value)}
-          className="search-input"
         />
-        <button type="submit" className="search-btn">
+        <Button type="submit" loading={loading}>
           <i className="fa-solid fa-magnifying-glass"></i>
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => setShowFavorites(!showFavorites)}
-          className="fav-btn"
+          variant="fav-btn"
         >
           Favorites
-        </button>
+        </Button>
       </form>
 
       <div className="result-area">

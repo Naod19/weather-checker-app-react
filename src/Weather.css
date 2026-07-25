@@ -13,35 +13,6 @@
   margin-bottom: 15px;
 }
 
-.search-input {
-  width: 100%;
-  padding: 10px;
-  height: 20px;
-  border-radius: 10px 0 0px 10px;
-  border: none;
-  outline: none;
-  transition: 0.3s ease;
-}
-.search-input:focus {
-  border-color: #6db8ff;
-  box-shadow: 0px 0px 5px #3498db;
-}
-.search-btn {
-  padding: 10px;
-  margin-right: 10px;
-  background-color: #0085c8;
-  color: #fff;
-  border: none;
-  border-radius: 0px 10px 10px 0px;
-  transition: all 0.2s ease;
-}
-.search-btn:hover {
-  background-color: #0ba0ea;
-}
-.search-btn:active {
-  background-color: #0085c8c0;
-}
-
 .fav-btn {
   padding: 10px;
   background-color: #396eff;
