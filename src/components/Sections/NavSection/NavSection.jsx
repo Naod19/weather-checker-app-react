@@ -1,5 +1,6 @@
 import SearchBar from "../../UI/SearchBar/SearchBar";
 import Button from "../../UI/Button/Button";
+import "./NavSection.css";
 
 export default function NavSection({
   value,

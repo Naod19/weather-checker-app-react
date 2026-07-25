@@ -1,6 +1,7 @@
 import Button from "../../UI/Button/Button";
 import LoadingSpinner from "../../UI/LoadingSpinner/LoadingSpinner";
 import ErrorMessage from "../../UI/ErrorMessage/ErrorMessage";
+import "./WeatherDisplay.css";
 
 export default function WeatherDisplay({
   weather,
