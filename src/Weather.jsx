@@ -1,25 +1,17 @@
 import { useEffect, useState } from "react";
 //Hooks
 import { useWeather } from "./hooks/useWeather";
+import { useFavorites } from "./hooks/useFavorites";
+
 import "./Weather.css";
 
 function WeatherApp() {
   const [inputValue, setInputValue] = useState("");
   const [city, setCity] = useState("");
   const { weather, loading, error } = useWeather(city);
-
-  const [favorites, setFavorites] = useState(() => {
-    const saved = localStorage.getItem("favorites");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [favorites, setFavorites] = useFavorites();
   const [showFavorites, setShowFavorites] = useState(false);
-
   const [notification, setNotification] = useState(null);
-
-  //localstorage
-  useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites]);
 
   //timer notification
   useEffect(() => {
