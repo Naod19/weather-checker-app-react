@@ -1,4 +1,5 @@
-import Button from "../../../UI/Button/Button";
+import FavCard from "../FavCard/FavCard";
+import "./FavSideBar.css";
 
 export default function FavSideBar({
   showFavorites,
@@ -14,15 +15,7 @@ export default function FavSideBar({
       <h3>My Favorites</h3>
       {favorites.length > 0 ? (
         favorites.map((fav) => (
-          <div key={fav.id} className="fav-item">
-            <h4>City: {fav.name}</h4>
-            <h4>Temp: {fav.temp}ºC</h4>
-            <h4>Feels Like: {fav.feelsLike}</h4>
-            <h4>Weather: {fav.desc}</h4>
-            <Button onClick={() => onRemove(fav.id)} className="remove-fav-btn">
-              remove
-            </Button>
-          </div>
+          <FavCard key={fav.id} data={fav} onClick={() => onRemove(fav.id)} />
         ))
       ) : (
         <p>No Favorites yet</p>
