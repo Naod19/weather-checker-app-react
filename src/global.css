@@ -1,0 +1,144 @@
+/* ============================================
+   FONTS
+   ============================================ */
+@font-face {
+  font-family: "Tanker";
+  src: url("./src/assets/fonts/Tanker-Regular.otf");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "RedHatDisplay";
+  src: url("./src/assets/fonts/RedHatDisplay-Variable.ttf");
+  font-weight: 100 900;
+  font-display: swap;
+}
+:root {
+  /* ============================================
+     COLORS
+     ============================================ */
+  --color-primary: #568ea3;
+  --color-secondary: #203240;
+  --color-accent: #93b6c4;
+
+  --bg-color: #f8f8f8;
+  --bg-card: #d7dddf;
+
+  --text-primary: #e4ebee;
+  --text-secondary: #0e131f;
+
+  --color-danger: #ff0035;
+  /* ============================================
+     SPACING
+     ============================================ */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 3rem;
+  --space-2xl: 5rem;
+  --space-3xl: 8rem;
+
+  /* ============================================
+     TYPOGRAPHY
+     ============================================ */
+  --font-heading: "Tanker", san-serif;
+  --font-body: "RedHatDisplay", san-serif;
+
+  --text-xm: 0.75rem;
+  --text-sm: 0.9rem;
+  --text-base: 1rem;
+  --text-lg: 1.5rem;
+  --text-xl: 2rem;
+  --text-2xl: 3rem;
+  --text-3xl: 3.875rem;
+  --text-4xl: 4rem;
+  --text-h1: 6rem;
+}
+
+/* ============================================
+   RESET
+   ============================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  background-color: var();
+}
+
+button,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  color: inherit;
+  background: transparent;
+  border: none;
+  font: inherit;
+}
+
+input {
+  display: block;
+  color: inherit;
+  background: transparent;
+  border: none;
+  font-family: var(--font-body);
+}
+
+ul,
+ol {
+  list-style: none;
+  padding-left: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ============================================
+   TYPOGRAPHY DEFAULTS
+   ============================================ */
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: var(--font-body);
+}
+
+h1 {
+  line-height: 1.1;
+  margin-bottom: var();
+  font-family: var(--font-heading);
+}
+
+h2 {
+  line-height: 1.15;
+  font-family: var(--font-heading);
+}
+
+h3 {
+  line-height: 1.2;
+}
+
+p {
+  line-height: 1.5;
+  margin: 0 0 var(--space-md) 0;
+}
