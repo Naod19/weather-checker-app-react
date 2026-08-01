@@ -13,6 +13,7 @@ import FavSideBar from "./components/Sections/FavoriteSection/FavSideBar/FavSide
 import NavSection from "./components/Sections/NavSection/NavSection";
 
 import "./Weather.css";
+import "./global.css";
 
 function WeatherApp() {
   const [inputValue, setInputValue] = useState("");
@@ -72,7 +73,6 @@ function WeatherApp() {
   //JSX
   return (
     <div className={`app-container ${bgColor}`}>
-      <h1>Weather Checker</h1>
       {notification && (
         <Notification
           message={notification}
@@ -84,7 +84,7 @@ function WeatherApp() {
         onInput={(e) => setInputValue(e.target.value)}
         onSubmit={handleSearch}
         loading={loading}
-        onClick={() => setShowFavorites(!showFavorites)}
+        setShowFavorites={setShowFavorites}
       />
 
       <WeatherDisplay

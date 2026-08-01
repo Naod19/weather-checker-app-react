@@ -1,0 +1,13 @@
+.searchbar-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.searchbar-input {
+  width: 100%;
+  font-size: var(--font-base);
+  border: none;
+  outline: none;
+  background: transparent;
+  min-width: 0;
+}
