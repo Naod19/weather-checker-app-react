@@ -87,14 +87,7 @@ function WeatherApp() {
         setShowFavorites={setShowFavorites}
       />
 
-      <WeatherDisplay
-        weather={weather}
-        temperature={temperature}
-        feelLike={feelLike}
-        onAddFavorite={handleFav}
-        loading={loading}
-        error={error}
-      />
+      <WeatherDisplay />
       <FavSideBar
         favorites={favorites}
         showFavorites={showFavorites}

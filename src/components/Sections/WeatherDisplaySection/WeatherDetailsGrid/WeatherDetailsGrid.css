@@ -1,0 +1,47 @@
+.details-grid {
+  padding: var(--space-md) var(--space-sm);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(170px, 1fr));
+  grid-auto-rows: 1fr;
+  gap: var(--space-md);
+}
+
+.details-card {
+  min-height: 146px;
+  padding: var(--space-lg) var(--space-md);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  border: 1px solid var(--text-secondary);
+  border-radius: 10px;
+}
+.card-value {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xm);
+}
+.card-value.pressure-card,
+.card-value.wind-card {
+  display: flex;
+  flex-direction: column;
+}
+.card-symbol {
+  font-size: var(--text-sm);
+}
+.card-symbol.percentage {
+  font-size: var(--text-lg);
+  margin-left: var(--space-sm);
+}
+.card-symbol.degree {
+  font-size: var(--text-xl);
+  margin: 0;
+  align-self: flex-start;
+}
+.card-symbol.pressure,
+.card-symbol.speed {
+  margin-left: 0;
+  font-size: var(--space-md);
+}
