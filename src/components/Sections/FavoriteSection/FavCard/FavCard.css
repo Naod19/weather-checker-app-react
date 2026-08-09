@@ -1,0 +1,36 @@
+.fav-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-lg) var(--space-md);
+  border: 1px solid var(--text-secondary);
+  border-radius: 10px;
+}
+
+.left-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--space-xs);
+}
+.right-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--space-xs);
+}
+.fav-delete-btn {
+  color: var(--color-danger);
+}
+.fav-delete-container {
+  background: transparent;
+  padding: var(--space-xs);
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+}
+.fav-delete-container:hover {
+  background: color-mix(in srgb, var(--color-danger) 30%, transparent);
+}

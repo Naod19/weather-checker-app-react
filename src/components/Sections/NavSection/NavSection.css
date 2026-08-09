@@ -1,4 +1,5 @@
 .nav-container {
+  position: relative;
   width: 100%;
   padding: var(--space-md) var(--space-sm);
   display: grid;
@@ -28,6 +29,9 @@
 }
 
 .hamburger-menu {
+  position: absolute;
+  top: 5px;
+  right: 0;
   height: 44px;
   width: 44px;
   display: flex;
@@ -37,8 +41,17 @@
   align-items: center;
   border-radius: 5px;
   gap: var(--space-sm);
-  transition: all 0.3s ease-in-out;
+  transition:
+    top 0.3s ease-in-out,
+    right 0.3s ease-in-out,
+    background-color 0.3s ease-in-out;
   cursor: pointer;
+  z-index: 1001;
+}
+.hamburger-menu.isActive {
+  position: fixed;
+  top: var(--space-md);
+  right: var(--space-lg);
 }
 .hamburger-menu:hover {
   background-color: color-mix(in srgb, var(--color-caption) 20%, transparent);
@@ -47,6 +60,9 @@
   background-color: var(--text-secondary);
   width: 21px;
   height: 2px;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease-in-out;
 }
 .hamburger-menu .bar:nth-child(1) {
   width: 21px;
@@ -55,6 +71,17 @@
   width: 19px;
 }
 .hamburger-menu .bar:nth-child(3) {
+  width: 25px;
+}
+.hamburger-menu.isActive .bar:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+  width: 25px;
+}
+.hamburger-menu.isActive .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-menu.isActive .bar:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
   width: 25px;
 }
 

@@ -84,6 +84,7 @@ function WeatherApp() {
         onInput={(e) => setInputValue(e.target.value)}
         onSubmit={handleSearch}
         loading={loading}
+        showFavorites={showFavorites}
         setShowFavorites={setShowFavorites}
       />
 

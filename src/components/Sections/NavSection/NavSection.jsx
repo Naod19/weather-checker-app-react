@@ -25,7 +25,7 @@ const list = [
   "Uganda",
 ];
 
-export default function NavSection({ setShowFavorites }) {
+export default function NavSection({ showFavorites, setShowFavorites }) {
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -60,7 +60,10 @@ export default function NavSection({ setShowFavorites }) {
           <p>City, Country</p>
           <MapPin className="location-icon" />
         </div>
-        <button className="hamburger-menu" onClick={favoriteToggle}>
+        <button
+          className={`hamburger-menu ${showFavorites ? "isActive" : ""}`}
+          onClick={favoriteToggle}
+        >
           <span className="bar"></span>
           <span className="bar"></span>
           <span className="bar"></span>
