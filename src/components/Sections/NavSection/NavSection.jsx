@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { useCitySearch } from "../../../hooks/useCitySearch";
+
 // Components
 import LoadingSpinner from "../../UI/LoadingSpinner/LoadingSpinner";
 import SearchBar from "../../UI/SearchBar/SearchBar";
@@ -12,44 +14,37 @@ import { MapPin } from "lucide-react";
 //CSS
 import "./NavSection.css";
 
-const list = [
-  "Chile",
-  "Japan",
-  "Madagascar",
-  "Norway",
-  "New Zealand",
-  "Uruguay",
-  "Kazakhstan",
-  "Fiji",
-  "Iceland",
-  "Uganda",
-];
-
-export default function NavSection({ showFavorites, setShowFavorites }) {
+export default function NavSection({
+  selectedCity,
+  onCitySelect,
+  showFavorites,
+  setShowFavorites,
+}) {
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const { coordinates, loading } = useCitySearch(search);
 
   const handleChange = (e) => {
     setSearch(e.target.value);
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
   };
   const searchToggle = () => {
     setSearchOpen((prev) => !prev);
+  };
+  const handleSelect = (city) => {
+    onCitySelect(city);
+    searchToggle();
   };
 
   const favoriteToggle = () => {
     setShowFavorites((prev) => !prev);
   };
 
-  const filteredList = list.filter((item) =>
-    item.toLowerCase().includes(search.toLowerCase()),
+  const cityLabel = (city) => (
+    <>
+      {city.name}, {city.state && `${city.state}, `}
+      <span className="country-span">{city.country}</span>
+    </>
   );
-
   return (
     <div className="nav-section">
       <nav className="nav-container">
@@ -57,7 +52,7 @@ export default function NavSection({ showFavorites, setShowFavorites }) {
           <SearchIcon className="search-icon" />
         </Button>
         <div className="city-name">
-          <p>City, Country</p>
+          <p>{selectedCity ? cityLabel(selectedCity) : "city, county"}</p>
           <MapPin className="location-icon" />
         </div>
         <button
@@ -79,21 +74,21 @@ export default function NavSection({ showFavorites, setShowFavorites }) {
                 placeholder="Search City"
                 className="searchbar-input"
               />
-              {isLoading && <LoadingSpinner />}
+              {loading && <LoadingSpinner />}
             </div>
             <div
               className={`searched-results ${search !== "" ? "results-open" : ""}`}
             >
               {search !== "" && (
                 <ul className="results-container">
-                  {filteredList.length > 0 ? (
-                    filteredList.map((item, index) => (
+                  {coordinates.length > 0 ? (
+                    coordinates.map((city) => (
                       <li
                         className="result-items"
-                        key={index}
-                        onClick={searchToggle}
+                        key={`${city.lat} - ${city.lon}`}
+                        onClick={() => handleSelect(city)}
                       >
-                        {item}
+                        {cityLabel(city)}
                       </li>
                     ))
                   ) : (
