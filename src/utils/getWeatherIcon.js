@@ -19,7 +19,7 @@ import ScatteredShowers from "../assets/weather-icons/Scattered-showers/Scattere
 import ScatteredShowersNight from "../assets/weather-icons/Scattered-showers-night/Scattered-showers-night-c.svg?react";
 
 // Thunderstorms
-import ScatteredThunderstorm from "../assets/weather-icons/Scattered-thunderstorm/Scattered-thunderstorm-c.svg?react?react";
+import ScatteredThunderstorm from "../assets/weather-icons/Scattered-thunderstorm/Scattered-thunderstorm-c.svg?react?";
 import RainAndThunderstorm from "../assets/weather-icons/Rain-and-thunderstorm/Rain-and-thunderstorm-c.svg?react?react";
 import SevereThunderstorm from "../assets/weather-icons/Severe-thunderstorm/Severe-thunderstorm-c.svg?react?react";
 
