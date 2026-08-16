@@ -1,31 +1,31 @@
 import WeatherDetailsCard from "./WeatherDetailsCard";
 import "./WeatherDetailsGrid.css";
 
-export default function WeatherDetailsGrid() {
+export default function WeatherDetailsGrid({ data }) {
   return (
     <div className="details-grid">
       <WeatherDetailsCard
         title="Real Feel"
-        value={22}
+        value={data?.feelsLike}
         symbol="°"
         symbolType="degree"
       />
       <WeatherDetailsCard
         title="Humidity"
-        value={80}
+        value={data?.humidity}
         symbol="%"
         symbolType="percentage"
       />
       <WeatherDetailsCard
         title="Pressure"
-        value={1122}
+        value={data?.pressure}
         symbol="mmHG"
         symbolType="pressure"
         secondaryCardValue="pressure-card"
       />
       <WeatherDetailsCard
         title="Wind"
-        value={9}
+        value={data?.wind}
         symbol="m/s"
         symbolType="speed"
         secondaryCardValue="wind-card"

@@ -1,14 +1,48 @@
+import { getWeatherIcon } from "../../../utils/getWeatherIcon";
+
 import MainWeatherCard from "./MainWeatherCard/MainWeatherCard";
 import WeatherDetailsGrid from "./WeatherDetailsGrid/WeatherDetailsGrid";
 import ForecastDisplay from "./ForecastDisplay/ForecastDisplay";
 
 import "./WeatherDisplay.css";
 
-export default function WeatherDisplay() {
+export default function WeatherDisplay({ weather, onHandleLocation, loading }) {
+  const iconSrc =
+    weather &&
+    getWeatherIcon(weather?.weather[0]?.id, weather?.weather[0]?.icon);
+
+  const handleRounding = (temp) => weather && Math.round(temp - 273.15);
+  // temp rounded
+  const temperature = handleRounding(weather?.main?.temp);
+  const feelLike = handleRounding(weather?.main?.feels_like);
+  const minTemp = handleRounding(weather?.main?.temp_min);
+  const maxTemp = handleRounding(weather?.main?.temp_max);
+
+  const windRounded = Math.round(weather?.wind?.speed);
+
+  const weatherData = weather
+    ? {
+        main: weather.weather[0]?.main,
+        description: weather.weather[0]?.description,
+        icon: iconSrc,
+        temp: temperature,
+        feelsLike: feelLike,
+        tempHigh: maxTemp,
+        tempLow: minTemp,
+        pressure: weather.main?.pressure,
+        humidity: weather.main?.humidity,
+        wind: windRounded,
+      }
+    : null;
+
   return (
     <section className="weather-display-container">
-      <MainWeatherCard />
-      <WeatherDetailsGrid />
+      <MainWeatherCard
+        data={weatherData}
+        onRequestLocation={onHandleLocation}
+        loading={loading}
+      />
+      <WeatherDetailsGrid data={weatherData} />
       <ForecastDisplay />
     </section>
   );

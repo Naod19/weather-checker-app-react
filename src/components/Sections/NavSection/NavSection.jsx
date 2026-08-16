@@ -19,6 +19,7 @@ export default function NavSection({
   onCitySelect,
   showFavorites,
   setShowFavorites,
+  onHandleLocation,
 }) {
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
@@ -80,23 +81,33 @@ export default function NavSection({
               className={`searched-results ${search !== "" ? "results-open" : ""}`}
             >
               {search !== "" && (
-                <ul className="results-container">
-                  {coordinates.length > 0 ? (
-                    coordinates.map((city) => (
-                      <li
-                        className="result-items"
-                        key={`${city.lat} - ${city.lon}`}
-                        onClick={() => handleSelect(city)}
-                      >
-                        {cityLabel(city)}
-                      </li>
-                    ))
-                  ) : (
-                    <p>
-                      City not found. Please check the spelling and try again.
-                    </p>
-                  )}
-                </ul>
+                <>
+                  <p
+                    onClick={() => {
+                      onHandleLocation();
+                      searchToggle();
+                    }}
+                  >
+                    Use Device's Location{" "}
+                  </p>
+                  <ul className="results-container">
+                    {coordinates.length > 0 ? (
+                      coordinates.map((city) => (
+                        <li
+                          className="result-items"
+                          key={`${city.lat} - ${city.lon}`}
+                          onClick={() => handleSelect(city)}
+                        >
+                          {cityLabel(city)}
+                        </li>
+                      ))
+                    ) : (
+                      <p>
+                        City not found. Please check the spelling and try again.
+                      </p>
+                    )}
+                  </ul>
+                </>
               )}
             </div>
           </div>

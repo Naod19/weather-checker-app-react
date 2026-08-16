@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
 export function useWeather(selectedCity) {
-  const [weather, setWeather] = useState([]);
+  const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 

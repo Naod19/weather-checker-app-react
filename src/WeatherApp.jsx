@@ -1,10 +1,7 @@
 import { useState } from "react";
-//Hooks
+//Hook
 import { useWeather } from "./hooks/useWeather";
 import { useFavorites } from "./hooks/useFavorites";
-
-//Utils
-import { getBackgroundClass } from "./utils/getBackgroundClass";
 
 //Components
 import Notification from "./components/UI/Notification/Notification";
@@ -14,65 +11,41 @@ import NavSection from "./components/Sections/NavSection/NavSection";
 
 import "./Weather.css";
 import "./global.css";
+import { getLocationName } from "./hooks/useLocationName";
 
 function WeatherApp() {
-  const [inputValue, setInputValue] = useState("");
-  const [city, setCity] = useState("");
-  const { weather, loading, error } = useWeather(city);
+  const [location, setLocation] = useState(null);
+  const { weather, loading, error } = useWeather(location);
   const [favorites, setFavorites] = useFavorites();
   const [showFavorites, setShowFavorites] = useState(false);
   const [notification, setNotification] = useState(null);
 
-  //timer notification
+  const handleLocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
 
-  // city search function
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (inputValue.trim()) {
-      setCity(inputValue);
-    }
+        const location = await getLocationName(latitude, longitude);
+
+        setLocation({
+          name: location.name,
+          country: location.country,
+          state: location.state,
+          lat: latitude,
+          lon: longitude,
+        });
+      },
+      (error) => {
+        console.log("Geolocation error");
+        console.log("Code:", error.code);
+        console.log("Message:", error.message);
+      },
+    );
   };
-
-  //temp rounded
-  const temperature = weather && Math.round(weather.main.temp);
-  const feelLike = weather && Math.round(weather.main.feels_like);
-
-  // adding favorites function
-  const handleFav = () => {
-    if (!weather) return;
-    const weatherInfo = {
-      id: weather.id,
-      name: weather.name,
-      temp: temperature,
-      feelsLike: feelLike,
-      desc: weather.weather[0].description,
-    };
-
-    const isDuplicate = favorites.some((fav) => fav.id === weather.id);
-
-    if (isDuplicate) {
-      setNotification("City already in favorites");
-      return;
-    }
-
-    setFavorites((prev) => [...prev, weatherInfo]);
-    setNotification("City added ✅");
-  };
-
-  const removeFav = (id) => {
-    const cityToRemove = favorites.find((city) => city.id === id);
-    if (cityToRemove) {
-      setNotification(`Removed ${cityToRemove.name} from favorites`);
-    }
-    setFavorites(favorites.filter((city) => city.id !== id));
-  };
-
-  //background changer
-  const bgColor = getBackgroundClass(weather, temperature);
 
   //JSX
   return (
-    <div className={`app-container ${bgColor}`}>
+    <div className={`app-container ${""}`}>
       {notification && (
         <Notification
           message={notification}
@@ -80,20 +53,24 @@ function WeatherApp() {
         />
       )}
       <NavSection
-        value={inputValue}
-        onInput={(e) => setInputValue(e.target.value)}
-        onSubmit={handleSearch}
-        loading={loading}
         showFavorites={showFavorites}
         setShowFavorites={setShowFavorites}
+        selectedCity={location}
+        onCitySelect={setLocation}
+        onHandleLocation={handleLocation}
       />
 
-      <WeatherDisplay />
+      <WeatherDisplay
+        weather={weather}
+        onHandleLocation={handleLocation}
+        loading={loading}
+        error={error}
+      />
       <FavSideBar
         favorites={favorites}
         showFavorites={showFavorites}
         onClose={() => setShowFavorites(false)}
-        onRemove={removeFav}
+        onRemove={"removeFav"}
       />
     </div>
   );

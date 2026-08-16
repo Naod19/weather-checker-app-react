@@ -10,10 +10,9 @@ export function useCitySearch(city) {
   useEffect(() => {
     if (!city) return;
     const controller = new AbortController();
+    setLoading(true);
 
     const fetchCoordinates = async () => {
-      setLoading(true);
-
       try {
         const response = await fetch(
           `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`,
@@ -24,13 +23,15 @@ export function useCitySearch(city) {
             "City not found. Please try again with a different city name.",
           );
         const data = await response.json();
-        const result = data.map((coord) => ({
-          name: coord.name,
-          country: coord.country,
-          state: coord.state,
-          lat: coord.lat,
-          lon: coord.lon,
-        }));
+        const result =
+          data &&
+          data.map((coord) => ({
+            name: coord.name,
+            country: coord.country,
+            state: coord.state,
+            lat: coord.lat,
+            lon: coord.lon,
+          }));
         setCoordinates(result);
       } catch (err) {
         if (err.name !== "AbortError") {
@@ -41,7 +42,9 @@ export function useCitySearch(city) {
       }
     };
 
-    const timeoutId = setTimeout(fetchCoordinates(), 4000);
+    const timeoutId = setTimeout(() => {
+      fetchCoordinates();
+    }, 1500);
 
     return () => {
       controller.abort();
