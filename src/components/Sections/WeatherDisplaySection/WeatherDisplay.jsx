@@ -6,7 +6,13 @@ import ForecastDisplay from "./ForecastDisplay/ForecastDisplay";
 
 import "./WeatherDisplay.css";
 
-export default function WeatherDisplay({ weather, onHandleLocation, loading }) {
+export default function WeatherDisplay({
+  weather,
+  selectedCity,
+  onHandleLocation,
+  addFavorites,
+  loading,
+}) {
   const iconSrc =
     weather &&
     getWeatherIcon(weather?.weather[0]?.id, weather?.weather[0]?.icon);
@@ -15,8 +21,6 @@ export default function WeatherDisplay({ weather, onHandleLocation, loading }) {
   // temp rounded
   const temperature = handleRounding(weather?.main?.temp);
   const feelLike = handleRounding(weather?.main?.feels_like);
-  const minTemp = handleRounding(weather?.main?.temp_min);
-  const maxTemp = handleRounding(weather?.main?.temp_max);
 
   const windRounded = Math.round(weather?.wind?.speed);
 
@@ -27,8 +31,6 @@ export default function WeatherDisplay({ weather, onHandleLocation, loading }) {
         icon: iconSrc,
         temp: temperature,
         feelsLike: feelLike,
-        tempHigh: maxTemp,
-        tempLow: minTemp,
         pressure: weather.main?.pressure,
         humidity: weather.main?.humidity,
         wind: windRounded,
@@ -41,9 +43,10 @@ export default function WeatherDisplay({ weather, onHandleLocation, loading }) {
         data={weatherData}
         onRequestLocation={onHandleLocation}
         loading={loading}
+        onAddFavorites={addFavorites}
       />
       <WeatherDetailsGrid data={weatherData} />
-      <ForecastDisplay />
+      <ForecastDisplay selectedCity={selectedCity} />
     </section>
   );
 }

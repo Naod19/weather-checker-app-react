@@ -1,13 +1,14 @@
-export default function ForecastCard({ icon, day, high, low }) {
+export default function ForecastCard({ data }) {
+  const WeatherIcon = data.icon;
   return (
     <div className="forecast-card">
-      <div className="forecast-icon">{icon}</div>
+      <div className="forecast-icon">{WeatherIcon && <WeatherIcon />}</div>
       <div className="forecast-day">
-        <span>{day}</span>
+        <span>{data.date}</span>
       </div>
       <div className="high-low">
-        <span>{high}</span>
-        <span>{low}</span>
+        <span>{data.high}°</span>
+        <span>{data.low}°</span>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { Trash2Icon } from "lucide-react";
 import "./FavCard.css";
 
-export default function FavCard({ data, onClick }) {
+export default function FavCard({ data, onDelete }) {
   return (
     <div className="fav-card">
       <div className="left-section">
@@ -10,7 +10,7 @@ export default function FavCard({ data, onClick }) {
       </div>
       <div className="right-section">
         <div className="fav-delete-container">
-          <Trash2Icon className="fav-delete-btn" onClick={onClick} size={24} />
+          <Trash2Icon className="fav-delete-btn" onClick={onDelete} size={24} />
         </div>
         <p className="fav-description">{data.weatherDesc}</p>
         <div className="fav-high-low">

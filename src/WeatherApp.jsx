@@ -2,6 +2,7 @@ import { useState } from "react";
 //Hook
 import { useWeather } from "./hooks/useWeather";
 import { useFavorites } from "./hooks/useFavorites";
+import { useForecast } from "./hooks/useForecast";
 
 //Components
 import Notification from "./components/UI/Notification/Notification";
@@ -43,6 +44,12 @@ function WeatherApp() {
     );
   };
 
+  // Adding favorites
+
+  const handleFavorites = (id) => {
+    return id;
+  };
+
   //JSX
   return (
     <div className={`app-container ${""}`}>
@@ -62,7 +69,9 @@ function WeatherApp() {
 
       <WeatherDisplay
         weather={weather}
+        selectedCity={location}
         onHandleLocation={handleLocation}
+        addFavorites={handleFavorites}
         loading={loading}
         error={error}
       />

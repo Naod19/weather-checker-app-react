@@ -1,7 +1,12 @@
-import { ArrowDown, ArrowUp, Bookmark } from "lucide-react";
+import { Bookmark } from "lucide-react";
 import "./MainWeatherCard.css";
 import Button from "../../../UI/Button/Button";
-export default function MainWeatherCard({ data, onRequestLocation, loading }) {
+export default function MainWeatherCard({
+  data,
+  onRequestLocation,
+  onAddFavorites,
+  loading,
+}) {
   const WeatherIcon = data?.icon;
 
   return (
@@ -9,7 +14,11 @@ export default function MainWeatherCard({ data, onRequestLocation, loading }) {
       {data ? (
         <>
           {" "}
-          <Bookmark className="bookmark-icon" size={31} />
+          <Bookmark
+            className="bookmark-icon"
+            size={31}
+            onClick={() => onAddFavorites(data.id)}
+          />
           <h4 className="weather-description-text">
             {data ? data.description : "Description"}
           </h4>
@@ -17,22 +26,6 @@ export default function MainWeatherCard({ data, onRequestLocation, loading }) {
             <span>{data ? data.temp : "0"}°</span>
             {WeatherIcon && <WeatherIcon className="weather-icon" />}
           </h1>
-          <div className="high-low-container">
-            <div className="high-temp">
-              <span className="temp-icon">
-                <ArrowUp className="arrow-icon" />
-              </span>
-              <p className="temp-text">H:</p>
-              <p className="temp-number">{data?.tempHigh}°</p>
-            </div>
-            <div className="low-temp">
-              <span className="temp-icon">
-                <ArrowDown className="arrow-icon" />
-              </span>
-              <p className="temp-text">L:</p>
-              <p className="temp-number">{data?.tempLow}°</p>
-            </div>
-          </div>
         </>
       ) : (
         <div className="location-access-container">
