@@ -2,7 +2,6 @@ import { useState } from "react";
 //Hook
 import { useWeather } from "./hooks/useWeather";
 import { useFavorites } from "./hooks/useFavorites";
-import { useForecast } from "./hooks/useForecast";
 
 //Components
 import Notification from "./components/UI/Notification/Notification";
@@ -20,6 +19,8 @@ function WeatherApp() {
   const [favorites, setFavorites] = useFavorites();
   const [showFavorites, setShowFavorites] = useState(false);
   const [notification, setNotification] = useState(null);
+
+  console.log(location);
 
   const handleLocation = () => {
     navigator.geolocation.getCurrentPosition(
@@ -46,13 +47,44 @@ function WeatherApp() {
 
   // Adding favorites
 
+  const handleRounding = (temp) => weather && Math.round(temp - 273.15);
+
   const handleFavorites = (id) => {
-    return id;
+    const isFavorite = favorites.some((city) => city.id === id);
+
+    const existingCity = favorites.find((city) => city.id === id);
+    if (isFavorite) {
+      setNotification(`${existingCity.name} is already added to favorites`);
+      return;
+    }
+
+    setFavorites((prevFav) => [
+      ...prevFav,
+      {
+        id: weather?.id,
+        name: location?.name,
+        state: location?.state,
+        country: location?.country,
+        temp: handleRounding(weather?.main?.temp),
+        lat: weather?.coord?.lat,
+        lon: weather?.coord?.lon,
+      },
+    ]);
+    setNotification(`${location.name} added to favorites`);
+  };
+
+  // delete favorites
+  const handleRemoveFav = (id) => {
+    const existingCity = favorites.find((city) => city.id === id);
+    setFavorites((prevFav) => {
+      return prevFav.filter((fav) => fav.id !== id);
+    });
+    setNotification(`${existingCity.name} removed from favorites`);
   };
 
   //JSX
   return (
-    <div className={`app-container ${""}`}>
+    <div className={`app-container`}>
       {notification && (
         <Notification
           message={notification}
@@ -78,8 +110,9 @@ function WeatherApp() {
       <FavSideBar
         favorites={favorites}
         showFavorites={showFavorites}
-        onClose={() => setShowFavorites(false)}
-        onRemove={"removeFav"}
+        handleFavoriteToggle={setShowFavorites}
+        onFavoriteClick={setLocation}
+        onRemove={handleRemoveFav}
       />
     </div>
   );

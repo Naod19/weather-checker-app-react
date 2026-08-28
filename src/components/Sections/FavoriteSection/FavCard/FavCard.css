@@ -15,6 +15,17 @@
   align-items: flex-start;
   gap: var(--space-xs);
 }
+.name-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--space-sm);
+}
+.state-country-section {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+}
 .right-section {
   display: flex;
   flex-direction: column;

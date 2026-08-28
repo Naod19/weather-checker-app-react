@@ -26,8 +26,9 @@ export default function WeatherDisplay({
 
   const weatherData = weather
     ? {
-        main: weather.weather[0]?.main,
-        description: weather.weather[0]?.description,
+        id: weather?.id,
+        main: weather?.weather[0]?.main,
+        description: weather?.weather[0]?.description,
         icon: iconSrc,
         temp: temperature,
         feelsLike: feelLike,
