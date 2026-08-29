@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 //Hook
 import { useWeather } from "./hooks/useWeather";
 import { useFavorites } from "./hooks/useFavorites";
@@ -14,13 +14,18 @@ import "./global.css";
 import { getLocationName } from "./hooks/useLocationName";
 
 function WeatherApp() {
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState(() => {
+    const savedLocation = localStorage.getItem("location");
+    return savedLocation ? JSON.parse(savedLocation) : null;
+  });
   const { weather, loading, error } = useWeather(location);
   const [favorites, setFavorites] = useFavorites();
   const [showFavorites, setShowFavorites] = useState(false);
   const [notification, setNotification] = useState(null);
 
-  console.log(location);
+  useEffect(() => {
+    localStorage.setItem("location", JSON.stringify(location));
+  }, [location]);
 
   const handleLocation = () => {
     navigator.geolocation.getCurrentPosition(
